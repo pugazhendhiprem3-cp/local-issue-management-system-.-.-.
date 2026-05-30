@@ -1,0 +1,35 @@
+package com.cp.localissue.controller;
+
+import com.cp.localissue.entity.Issue;
+import com.cp.localissue.repository.IssueRepository;
+import com.cp.localissue.service.IssueService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/issues")
+public class IssueController {
+
+    @Autowired
+    private IssueService issueService;
+
+    @PostMapping
+    public Issue createIssue(@RequestBody Issue issue) {
+        return issueRepository.save(issue);
+    }
+
+    @GetMapping
+    public List<Issue> getAllIssues() {
+        return issueRepository.findAll();
+    }
+    @DeleteMapping("/{id}")
+    public String deleteIssue(@PathVariable Long id) {
+
+        issueRepository.deleteById(id);
+
+        return "Issue Deleted Successfully";
+}
+}
